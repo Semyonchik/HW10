@@ -1,0 +1,15 @@
+- hosts: localhost
+  gather_facts: no
+  
+  tasks:
+    - name: "Install Apache, MySQL and PHP5"
+      yum: name = {{item}} state=present
+      with_items:
+        - mysql-server
+        - python-mysqldb
+        - php5-mysql
+
+    - name: "Turn on Apache and MyDQL"
+      service: name = {{item}} state=started enabled=yes
+      with_items:
+        - mysql
